@@ -27,25 +27,25 @@ This template includes:
 
 ---
  ## Cenario 1: Unregistered user wants to create a game
---- 
-1 The user enters the initial page (login page) that shows the username and password text inputs, a button to login, and a link to the register page.
-2 The user presses the link to register. The register page also shows the username and password inputs, a button to register and a link to the login page. 
-3 The user fills the name and password and presses the button to register
-4 The user than presses the link to go back to login page, fills the username and password and presses the login button
-5 Since the user is not in a game he will go to the match page
-6 The match page shows at the top the name of the user and a button to logoff, bellow the available matches (matches waiting for players) and at the bottom a button to create a new match
-7 The user presses the button to create a new match and will go to the waiting page to wait for another player to join.
-8 The waiting page has the name of the player, a message saying it is waiting, and a button to cancel the game.
-9 Another user joins the game and the game page is shown. A Score Board is shown at the top left with the game turn, the name of the players and the current state of the players (the API determines who will start randomly)
+1. The user enters the initial page (login page) that shows the username and password text inputs, a button to login, and a link to the register page.
+2. The user presses the link to register. The register page also shows the username and password inputs, a button to register and a link to the login page. 
+3. The user fills the name and password and presses the button to register
+4. The user than presses the link to go back to login page, fills the username and password and presses the login button
+5. Since the user is not in a game he will go to the match page
+6. The match page shows at the top the name of the user and a button to logoff, bellow the available matches (matches waiting for players) and at the bottom a button to create a new match
+7. The user presses the button to create a new match and will go to the waiting page to wait for another player to join.
+8. The waiting page has the name of the player, a message saying it is waiting, and a button to cancel the game.
+9. Another user joins the game and the game page is shown. A Score Board is shown at the top left with the game turn, the name of the players and the current state of the players (the API determines who will start randomly)
 ## Alternative cenario: The user cancels the game
 After step 8:
-9 The user presses the button to cancel the game and returns to the matches page.
+9. The user presses the button to cancel the game and returns to the matches page.
 ## Alternative cenario: The user logs off 
 After step 6:
-7 The user presses the logout button and returns to the login
+7. The user presses the logout button and returns to the login
 ## Alternative cenario: The user is already registered
 Skips steps 2 and 3, step 4 becomes:
-4 The user fills the username and password and presses the login button
+4. The user fills the username and password and presses the login button
+
 ---
 
 ---
@@ -53,7 +53,8 @@ Skips steps 2 and 3, step 4 becomes:
  **Pre-conditions**
  * The user is registered and authenticated
  * The user is in the matches page
---- 
-1- In the matches page the user presses one of the available matches.
-2- The game page is shown with the Score Board with both players names and state and the turn.
+
+1. In the matches page the user presses one of the available matches.
+2. The game page is shown with the Score Board with both players names and state and the turn.
+
 ---
