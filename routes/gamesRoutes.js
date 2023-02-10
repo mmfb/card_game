@@ -16,7 +16,7 @@ router.get('/', auth.verifyAuth, async function (req, res, next) {
             for (let game of result.result) {
                 games.push(game.export());
             }
-            res.status(result.status).send(games);
+            res.status(200).send(games);
         }
     } catch (err) {
         console.log(err);
@@ -31,13 +31,9 @@ router.get('/', auth.verifyAuth, async function (req, res, next) {
 router.get('/auth', auth.verifyAuth, async function (req, res, next) {
     try {
         console.log("Get game information for the authenticated user");
-        if (!req.game) {
-            res.status(404).send({msg:"You are not currently on any game"})
-        } else {
-            // all the information is already on the req.game, we only need to hide irrelevant information
-            res.status(200).send(req.game.export());
-        }
-    } catch (err) {
+        // all the information is already on the req.game, we only need to hide irrelevant information
+        res.status(200).send(req.game && req.game.export());
+        } catch (err) {
         console.log(err);
         res.status(500).send(err);
     }

@@ -26,8 +26,9 @@ class Player {
 }
 
 class Game {
-    constructor(id,state,player,opponents) {
+    constructor(id,turn,state,player,opponents) {
         this.id = id;
+        this.turn = turn;
         this.state = state;
         this.player = player;
         this.opponents = opponents || [];
@@ -35,6 +36,7 @@ class Game {
     export() {
         let game = new Game();
         game.id = this.id;
+        game.turn = this.turn;
         game.state = this.state.export();
         if (this.player)
             game.player = this.player.export();
@@ -71,7 +73,7 @@ class Game {
                     where gst_state = 'Waiting'`);
             let games = [];
             for (let dbGame of dbGames) {
-                let game = new Game(dbGame.gm_id,new State(dbGame.gst_id,dbGame.gst_state));
+                let game = new Game(dbGame.gm_id,dbGame.gm_turn,new State(dbGame.gst_id,dbGame.gst_state));
                 let result = await this.fillPlayersOfGame(playerId,game);
                 if (result.status != 200) {
                     return result;
@@ -94,9 +96,9 @@ class Game {
                     inner join game_state on gm_state_id = gst_id
                     where ug_user_id=? and gst_state IN ('Waiting','Started')`, [id]);
             if (dbGames.length==0)
-                return {status:404, result:{msg:"No active game found for player"}};
+                return {status:200, result:false};
             let dbGame = dbGames[0];
-            let game = new Game(dbGame.gm_id,new State(dbGame.gst_id,dbGame.gst_state));
+            let game = new Game(dbGame.gm_id,dbGame.gm_turn,new State(dbGame.gst_id,dbGame.gst_state));
             let result = await this.fillPlayersOfGame(id,game);
             if (result.status != 200) {
                 return result;

@@ -11,6 +11,7 @@ create table user (
 
 create table game (
     gm_id int not null auto_increment,
+    gm_turn int not null default 1,
     gm_state_id int not null,
     primary key (gm_id));
 
