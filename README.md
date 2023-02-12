@@ -21,7 +21,9 @@ This template includes:
         * Join an existing game
         * Create a new game
         * Cancel the game I am playing
-* A simplified frontend with pages for login in, register, choose or create a match, wait for other players to join the match, the game page (this page has a score board that shows the state of both players playing the game)
+    - Game endpoints:
+        * End the turn
+* A simplified frontend with pages for login in, register, choose or create a match, wait for other players to join the match, the game page (this page has a score board that shows the state of both players playing the game and a button to end the turn)
 
 # Tipical cenarios for this template:
 
@@ -59,10 +61,23 @@ Skips steps 2 and 3, step 4 becomes:
  * The user is in the matches page
 
 1. In the matches page the user presses one of the available matches.
-2. The game page is shown with the Score Board with both players names and state and the turn.
+2. The game page is shown with the Score Board with both players names and state, and the game turn.
+
+---
 
 
-1. In the matches page the user presses one of the available matches.
-2. The game page is shown with the Score Board with both players names and state and the turn.
+
+---
+ ## Cenario 3: Two authenticated users playing
+ **Pre-conditions**
+ * Both users are already registered and authenticated
+ * Both users are in the game page
+ * Both users are in the same game that just started
+ * First user, which will call player one, got the first turn while the second user, player two, is waiting for his turn
+
+1. On the start of the game Player One sees on the Score Board that it is his turn to play and the opponent is waiting. Since it is his turn a button to end the turn shows on the bottom right.
+2. On the start of the game Player Two sees on the Score Board that the opponent got the first turn and he is waiting
+3. Player One presses the button to end the turn. The button disapears and the score board now says that it is the opponent's turn and that he is waiting.
+4. A moment after Player One finishes the turn Player Two sees that it is now his turn and that the opponent is waiting. The button to end the turn is also made visible in the bottom right.
 
 ---

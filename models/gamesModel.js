@@ -1,6 +1,7 @@
 const pool = require("../config/database");
 
-
+// For now it is only an auxiliary class to hold data in here 
+// so no need to create a model file for it
 class State {
     constructor(id, name) {
         this.id = id;
@@ -11,9 +12,11 @@ class State {
     }
 }
 
+// For now it is only an auxiliary class to hold data in here 
+// so no need to create a model file for it
 class Player {
     constructor(id,name,state) {
-        this.id = id;
+        this.id = id;        
         this.name = name;
         this.state= state;
     }
@@ -46,16 +49,16 @@ class Game {
 
     // No verifications, we assume they were already made
     // This is mostly an auxiliary method
-    static async fillPlayersOfGame(playerId,game) {
+    static async fillPlayersOfGame(userId,game) {
         try {
             let [dbPlayers] = await pool.query(`Select * from user 
             inner join user_game on ug_user_id = usr_id
              inner join user_game_state on ugst_id = ug_state_id
             where ug_game_id=?`, [game.id]);
             for (let dbPlayer of dbPlayers) {
-                let player = new Player(dbPlayer.usr_id,dbPlayer.usr_name,
+                let player = new Player(dbPlayer.ug_id,dbPlayer.usr_name,
                             new State(dbPlayer.ugst_id,dbPlayer.ugst_state) );
-                if (dbPlayer.usr_id == playerId) game.player = player;
+                if (dbPlayer.usr_id == userId) game.player = player;
                 else game.opponents.push(player);
             }
             return {status:200, result: game};
@@ -65,7 +68,7 @@ class Game {
         }
     }
     
-    static async getGamesWaitingForPlayers(playerId) {
+    static async getGamesWaitingForPlayers(userId) {
         try {
             let [dbGames] =
                 await pool.query(`Select * from game 
@@ -74,7 +77,7 @@ class Game {
             let games = [];
             for (let dbGame of dbGames) {
                 let game = new Game(dbGame.gm_id,dbGame.gm_turn,new State(dbGame.gst_id,dbGame.gst_state));
-                let result = await this.fillPlayersOfGame(playerId,game);
+                let result = await this.fillPlayersOfGame(userId,game);
                 if (result.status != 200) {
                     return result;
                 }

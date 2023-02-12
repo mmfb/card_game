@@ -19,10 +19,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const usersRouter = require("./routes/usersRoutes");
 const gamesRouter = require("./routes/gamesRoutes");
+const playsRouter = require("./routes/playsRoutes");
 
 app.use("/api/users",usersRouter);
 app.use("/api/games",gamesRouter);
-
+app.use("/api/plays",playsRouter);
 
 // when we don't find anything
 app.use((req, res, next) => {
