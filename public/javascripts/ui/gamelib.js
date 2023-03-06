@@ -5,7 +5,7 @@ async function refresh() {
         await  getGameInfo();       
         if (GameInfo.game.player.state != "Waiting") {
             // The moment we pass from waiting to play
-            GameInfo.prepareUIforPlaying();
+            GameInfo.prepareUI();
         }
     } 
     // Nothing to do when we are playing since we control all that happens 
@@ -33,11 +33,8 @@ async function setup() {
     GameInfo.endturnButton.addClass('game')
 
 
-    if (GameInfo.game.player.state == "Waiting") {
-        GameInfo.prepareUIforWaiting();
-    } else {
-        GameInfo.prepareUIforPlaying();
-    }
+    GameInfo.prepareUI();
+    
 
     GameInfo.loading = false;
 }

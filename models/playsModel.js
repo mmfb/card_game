@@ -11,13 +11,6 @@ class Play {
     // NOTE: This might be the place to check for victory, but it depends on the game
     static async endTurn(game) {
         try {
-            // Do not need to check if there two players since in that case
-            // the player will not be on Playing state
-            if (game.player.state.name != "Playing") {
-                return {status: 400, result:{msg: 
-                    "You cannot end turn since you are not currently on your turn"}}
-            }
-
             // Change player state to waiting (1)
             await pool.query(`Update user_game set ug_state_id=? where ug_id = ?`,
                 [1,game.player.id]); 

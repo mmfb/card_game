@@ -16,6 +16,6 @@ async function endturnAction() {
     let result = await requestEndTurn();
     if (result.successful) {
         await  getGameInfo();
-        GameInfo.prepareUIforWaiting();
+        GameInfo.prepareUI();
     } else alert("Something went wrong when ending the turn.")
 }

@@ -1,6 +1,5 @@
 const bcrypt = require('bcrypt');
 const pool = require("../config/database");
-const auth = require("../config/utils");
 const saltRounds = 10; 
 
 class User {
