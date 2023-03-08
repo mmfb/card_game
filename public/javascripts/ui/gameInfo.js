@@ -1,14 +1,19 @@
 // All the variables for the game UI
 // we only have one game info so everything is static
 class GameInfo  {
+    // settings variables
     static width = 1200;
     static height = 600;
 
-    static game;
-    static scoreBoard;
-
     static loading = true;
 
+    // data
+    static game;
+    static images = {};
+    static sounds = {};
+
+    // rendererers
+    static scoreBoard;
 
     // buttons
     static endturnButton;

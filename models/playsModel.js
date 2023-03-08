@@ -3,6 +3,27 @@ const pool = require("../config/database");
 class Play {
     // At this moment I do not need to store information so we have no constructor
 
+    // we consider all verifications were made
+    static async startGame(game) {
+        try {
+            // Randomly determines who starts    
+            let myTurn = (Math.random() < 0.5);
+            let p1Id = myTurn ? game.player.id : game.opponents[0].id;
+            let p2Id = myTurn ? game.opponents[0].id : game.player.id;
+            // Player that start changes to the state Playing 
+            await pool.query(`Update user_game set ug_state_id=? where ug_id = ?`, [2, p1Id]);
+            // Changing the game state to start
+            await pool.query(`Update game set gm_state_id=? where gm_id = ?`, [2, game.id]);
+
+             // ---- Specific rules for each game start bellow
+
+        } catch (err) {
+            console.log(err);
+            return { status: 500, result: err };
+        }
+    }
+
+
     // This considers that only one player plays at each moment, 
     // so ending my turn starts the other players turn
     // We consider the following verifications were already made:
