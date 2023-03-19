@@ -3,10 +3,10 @@ const router = express.Router();
 const ScoreBoardLine = require("../models/scoreboardModel");
 const auth = require("../middleware/auth");
 
-
+// Get score of current players game
 router.get('/auth', auth.verifyAuth, async function (req, res, next) {
     try {
-        console.log("Get score of current player");
+        console.log("Get score of current players game");
         if (!req.game) {
             res.status(400).send({ msg: "You are not at a game, please create or join a game" });
         } else if (req.game.state.name != "Finished") {
@@ -23,12 +23,10 @@ router.get('/auth', auth.verifyAuth, async function (req, res, next) {
         res.status(500).send(err);
     }
 });
-
-
-
+// Get score of all games that have finished
 router.get('/', async function (req, res, next) {
     try {
-        console.log("Get score of all players");
+        console.log("Get score of all of games that have finished");
         let result = await ScoreBoardLine.getAllGameResults();
         res.status(result.status).send(result.result.map(s=>s.export()));
     } catch (err) {
@@ -36,10 +34,7 @@ router.get('/', async function (req, res, next) {
         res.status(500).send(err);
     }
 });
-
-
-
-
+// Close the score view (player will be able to join other games)
 router.patch('/auth/close', auth.verifyAuth, async function (req, res, next) {
     try {
         console.log("Player closed the score view for the current game.");
@@ -59,6 +54,5 @@ router.patch('/auth/close', auth.verifyAuth, async function (req, res, next) {
         res.status(500).send(err);
     }
 });
-
 
 module.exports = router;
