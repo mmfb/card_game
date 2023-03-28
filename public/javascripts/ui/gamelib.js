@@ -4,7 +4,6 @@ async function refresh() {
         // Every time we are waiting
         await getGameInfo();   
         await getDecksInfo();  
-        await getShipsInfo();  
         if (GameInfo.game.player.state != "Waiting") {
             // The moment we pass from waiting to play
             GameInfo.prepareUI();
@@ -16,8 +15,6 @@ async function refresh() {
 
 function preload() {
     GameInfo.images.card = loadImage('/assets/card_template.png');
-    GameInfo.images.ship = loadImage('/assets/Ship_big_with_guns.png');
-    GameInfo.images.ripples = loadImage('/assets/Ship_ripples_big_all.png');   
 }
 
 
@@ -37,7 +34,6 @@ async function setup() {
     GameInfo.endturnButton.addClass('game')
 
     await getDecksInfo();
-    await getShipsInfo();
 
     GameInfo.prepareUI();
     
@@ -46,7 +42,7 @@ async function setup() {
 }
 
 function draw() {
-    background('darkturquoise');
+    background(220);
     if (GameInfo.loading) {
         textAlign(CENTER, CENTER);
         textSize(40);
@@ -56,8 +52,6 @@ function draw() {
         GameInfo.scoreBoard.draw();
         GameInfo.playerDeck.draw();
         GameInfo.oppDeck.draw();
-        GameInfo.playerShip.draw();
-        GameInfo.oppShip.draw();
     }
     
 }

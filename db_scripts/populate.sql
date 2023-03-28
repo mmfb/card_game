@@ -11,11 +11,18 @@ insert into user_game_state (ugst_state) values ('Waiting');
 insert into user_game_state (ugst_state) values ('Playing');
 insert into user_game_state (ugst_state) values ('End');
 
-# ----------- NEW --------------
 
-insert into ship_state (shs_state) values ('Ready');
-insert into ship_state (shs_state) values ('Acted');
-insert into ship_state (shs_state) values ('Defensive');
+insert into user_game_state (ugst_state) values ('Score');
+insert into user_game_state (ugst_state) values ('End');
+
+# Possible end game states
+insert into scoreboard_state (sbs_state) values ('Tied');
+insert into scoreboard_state (sbs_state) values ('Lost');
+insert into scoreboard_state (sbs_state) values ('Won');
+
+
+
+# ----------- NEW --------------
 
 insert into card_type (ct_name) values ('Attack'),('Heal'),('Defense');
 
@@ -33,6 +40,7 @@ INSERT INTO user VALUES (1,'me','$2b$10$Wemfac2wY/7RSCdKxuYUL.GV2clfhXC66OL76uCp
 INSERT INTO game VALUES (1,1,2);
 INSERT INTO user_game VALUES (1,1,1,2),(2,2,1,1);
 
-INSERT INTO ship VALUES (1,1,1,20,3),(2,2,1,20,0);
 
 INSERT INTO user_game_card VALUES (1,1,CEIL(RAND()*7),1),(2,1,CEIL(RAND()*7),1),(3,1,CEIL(RAND()*7),1);
+
+

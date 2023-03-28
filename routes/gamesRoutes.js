@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const Game = require("../models/gamesModel");
-const Play = require("../models/playsModel");
+const Play = require ("../models/playsModel");
 const auth = require("../middleware/auth");
 
 
-
+// Get games waiting for players
 router.get('/', auth.verifyAuth, async function (req, res, next) {
     try {
         console.log("Get games that are waiting for players");
@@ -24,10 +24,6 @@ router.get('/', auth.verifyAuth, async function (req, res, next) {
         res.status(500).send(err);
     }
 });
-
-
-
-
 // Get information about the game of the authenticated user 
 router.get('/auth', auth.verifyAuth, async function (req, res, next) {
     try {
@@ -39,7 +35,7 @@ router.get('/auth', auth.verifyAuth, async function (req, res, next) {
         res.status(500).send(err);
     }
 });
-
+// Create a new game
 router.post('/', auth.verifyAuth, async function (req, res, next) {
     try {
         console.log("Create a new game");
@@ -54,8 +50,7 @@ router.post('/', auth.verifyAuth, async function (req, res, next) {
         res.status(500).send(err);
     }
 });
-
-
+// Join a game
 router.patch('/:id/join', auth.verifyAuth, async function (req, res, next) {
     try {
         console.log("Join game");
@@ -73,8 +68,7 @@ router.patch('/:id/join', auth.verifyAuth, async function (req, res, next) {
         res.status(500).send(err);
     }
 });
-
-
+// Cancel a game
 router.patch('/auth/cancel', auth.verifyAuth, async function (req, res, next) {
     try {
         console.log("Cancel game");
@@ -89,6 +83,5 @@ router.patch('/auth/cancel', auth.verifyAuth, async function (req, res, next) {
         res.status(500).send(err);
     }
 });
-
 
 module.exports = router;
