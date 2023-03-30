@@ -23,6 +23,8 @@ create table game_state (
 create table user_game (
     ug_id int not null auto_increment,
     ug_order int,
+    ug_hp int default 20,
+    ug_mana int default 3,
     ug_user_id int not null,
     ug_game_id int not null,
     ug_state_id int not null,
@@ -41,10 +43,16 @@ create table card (
     crd_id int not null auto_increment,
     crd_cost int not null,
     crd_name varchar(50) not null,
-    crd_effect varchar(150) not null,
-    crd_note varchar(200),
+    crd_initial_hp int not null,
+    crd_attack int not null, 
     crd_type_id int not null,
+    crd_deck_type_id int not null,
     primary key (crd_id));
+
+create table deck_type (
+    dck_id int not null auto_increment,
+    dck_name varchar (60) not null,
+    primary key (dck_id));
 
 create table card_type (
     ct_id int not null auto_increment,
@@ -55,9 +63,18 @@ create table user_game_card (
     ugc_id int not null auto_increment,
     ugc_user_game_id int not null,
     ugc_crd_id int not null,
-    ugc_active tinyint(1) not null,
+    ugc_pos_id int not null,
+    ugc_hp int not null,
+    ugc_hidden tinyint(1) not null,
     primary key (ugc_id)
 );
+
+
+create table card_position (
+    pos_id int not null auto_increment,
+    pos_name varchar (60) not null,
+    primary key (pos_id));
+
 
 create table scoreboard (
     sb_id int not null auto_increment,
@@ -98,8 +115,16 @@ alter table user_game_card add constraint user_game_card_fk_card
             foreign key (ugc_crd_id) references card(crd_id) 
 			ON DELETE NO ACTION ON UPDATE NO ACTION;
 
+alter table user_game_card add constraint user_game_card_fk_position
+            foreign key (ugc_pos_id) references card_position(pos_id) 
+            ON DELETE NO ACTION ON UPDATE NO ACTION;            
+
 alter table card add constraint card_fk_card_type
             foreign key (crd_type_id) references card_type(ct_id) 
+			ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+alter table card add constraint card_fk_deck_type
+            foreign key (crd_deck_type_id) references deck_type(dck_id) 
 			ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 alter table scoreboard add constraint scoreboard_fk_user_game
